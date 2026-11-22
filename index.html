@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kishorenath S | Software Engineer & CSE Undergraduate @ CEG</title>
+  <meta name="description" content="Portfolio of Kishorenath S — 3rd Year Computer Science and Engineering Undergraduate at College of Engineering Guindy (CEG), Anna University, Chennai. Creator of securedrop.kishorenath.me." />
+  <meta name="theme-color" content="#06080e" />
+
+  <!-- OpenGraph Metadata -->
+  <meta property="og:type" content="profile" />
+  <meta property="og:title" content="Kishorenath S | Software Engineer & CSE Undergraduate" />
+  <meta property="og:description" content="Portfolio of Kishorenath S — Computer Science and Engineering at College of Engineering Guindy (CEG), Chennai. Projects, technical skills, and leadership." />
+  <meta property="og:url" content="https://kishorenath.me" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              base: '#06080e',
+              card: '#0d121e',
+              cyan: '#38bdf8',
+              indigo: '#6366f1',
+              purple: '#a855f7',
+              emerald: '#10b981'
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom Stylesheets -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-[#06080e] text-slate-100 antialiased selection:bg-sky-500/25 selection:text-sky-300 bg-grid-pattern">
+
+  <!-- Interactive Background Canvas -->
+  <canvas id="bg-canvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
+
+  <!-- Ambient Glowing Orbs -->
+  <div class="aurora-orb-1"></div>
+  <div class="aurora-orb-2"></div>
+  <div class="aurora-orb-3"></div>
+
+  <!-- Custom Cursor Elements (Active on Desktop) -->
+  <div class="cursor-dot hidden md:block"></div>
+  <div class="cursor-outline hidden md:block"></div>
+
+  <!-- Scroll Progress Indicator -->
+  <div class="fixed top-0 left-0 right-0 h-[2.5px] bg-transparent z-50">
+    <div id="scroll-progress" class="h-full bg-gradient-to-r from-sky-400 via-indigo-500 to-purple-500 w-0 transition-all duration-75"></div>
+  </div>
+
+  <!-- =========================================================================
+       Navigation Bar
+       ========================================================================= -->
+  <header id="main-navbar" class="fixed top-0 left-0 right-0 z-40 py-5 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 flex items-center justify-between">
+      
+      <!-- Brand / Identity -->
+      <a href="#hero" class="flex items-center space-x-3.5 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 p-[1px] shadow-lg shadow-sky-500/20 group-hover:shadow-sky-500/40 transition-all duration-300">
+          <div class="w-full h-full bg-[#090d16] rounded-xl flex items-center justify-center font-bold text-sky-400 text-sm font-mono">
+            KS
+          </div>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-bold tracking-tight text-white group-hover:text-sky-300 transition-colors text-base">
+            Kishorenath S
+          </span>
+          <span class="text-xs font-mono text-slate-400">
+            kishorenath.me
+          </span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden md:flex items-center space-x-1 pro-card px-4 py-1.5 rounded-full border border-slate-800">
+        <a href="#about" class="px-3.5 py-1.5 text-xs uppercase tracking-wider font-semibold text-slate-300 hover:text-sky-400 transition-colors rounded-full hover:bg-slate-800/40">
+          About
+        </a>
+        <a href="#securedrop" class="px-3.5 py-1.5 text-xs uppercase tracking-wider font-semibold text-slate-300 hover:text-sky-400 transition-colors rounded-full hover:bg-slate-800/40 flex items-center gap-1.5">
+          <span>SecureDrop</span>
+          <span class="w-1.5 h-1.5 rounded-full bg-sky-400 animate-ping"></span>
+        </a>
+        <a href="#projects" class="px-3.5 py-1.5 text-xs uppercase tracking-wider font-semibold text-slate-300 hover:text-sky-400 transition-colors rounded-full hover:bg-slate-800/40">
+          Projects
+        </a>
+        <a href="#skills" class="px-3.5 py-1.5 text-xs uppercase tracking-wider font-semibold text-slate-300 hover:text-sky-400 transition-colors rounded-full hover:bg-slate-800/40">
+          Skills
+        </a>
+        <a href="#education" class="px-3.5 py-1.5 text-xs uppercase tracking-wider font-semibold text-slate-300 hover:text-sky-400 transition-colors rounded-full hover:bg-slate-800/40">
+          Education
+        </a>
+        <a href="#leadership" class="px-3.5 py-1.5 text-xs uppercase tracking-wider font-semibold text-slate-300 hover:text-sky-400 transition-colors rounded-full hover:bg-slate-800/40">
+          Leadership
+        </a>
+      </nav>
+
+      <!-- Right Header Actions -->
+      <div class="hidden md:flex items-center space-x-3.5">
+        <!-- Audio Feedback Toggle -->
+        <button id="sound-toggle" aria-label="Toggle Audio Effects" title="Toggle Audio Effects" class="p-2 rounded-lg text-slate-400 hover:text-sky-400 hover:bg-slate-800/50 transition-colors">
+          <i data-lucide="volume-2" class="w-4 h-4"></i>
+        </button>
+
+        <!-- Live Status Pill -->
+        <div class="flex items-center space-x-2 px-3 py-1.5 rounded-full bg-emerald-950/40 border border-emerald-500/30 text-emerald-400 text-xs font-mono font-medium">
+          <div class="status-beacon-live"></div>
+          <span>CSE @ CEG Chennai</span>
+        </div>
+
+        <!-- Contact CTA -->
+        <a href="#contact-connect" class="btn-primary-exec px-4 py-2 text-xs flex items-center gap-1.5">
+          <i data-lucide="mail" class="w-3.5 h-3.5"></i>
+          <span>Get in Touch</span>
+        </a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button id="mobile-menu-btn" class="md:hidden p-2 text-slate-300 hover:text-white" aria-label="Open Navigation">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobile-menu" class="hidden md:hidden px-6 pt-4 pb-6 pro-card border-b border-slate-800 space-y-3 mt-3 mx-4">
+      <a href="#about" class="block text-slate-200 hover:text-sky-400 text-sm py-1.5">About</a>
+      <a href="#securedrop" class="block text-slate-200 hover:text-sky-400 text-sm py-1.5 flex items-center justify-between">
+        <span>SecureDrop (Subdomain)</span>
+        <span class="text-xs bg-sky-500/20 text-sky-300 px-2 py-0.5 rounded font-mono">Live</span>
+      </a>
+      <a href="#projects" class="block text-slate-200 hover:text-sky-400 text-sm py-1.5">Projects</a>
+      <a href="#skills" class="block text-slate-200 hover:text-sky-400 text-sm py-1.5">Skills</a>
+      <a href="#education" class="block text-slate-200 hover:text-sky-400 text-sm py-1.5">Education &amp; Honors</a>
+      <a href="#leadership" class="block text-slate-200 hover:text-sky-400 text-sm py-1.5">Leadership &amp; Activities</a>
+      <div class="pt-3 border-t border-slate-800 flex justify-between items-center">
+        <a href="mailto:saravanankisor679@gmail.com" class="text-sky-400 text-xs font-semibold flex items-center gap-1">
+          <i data-lucide="mail" class="w-3.5 h-3.5"></i> saravanankisor679@gmail.com
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       Hero Section (Professional & Broad Software Engineering Focus)
+       ========================================================================= -->
+  <main class="relative z-10 pt-32 pb-24 px-6 sm:px-8">
+    <section id="hero" class="max-w-5xl mx-auto flex flex-col items-center text-center pt-8 md:pt-14 pb-16">
+      
+      <!-- Academic & Domain Verification Badge -->
+      <div class="inline-flex flex-wrap items-center justify-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/90 border border-slate-700/80 mb-8 copy-btn cursor-pointer group" data-copy="kishorenath.me" title="Click to copy canonical domain">
+        <span class="w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span>
+        <span class="text-xs font-mono text-slate-300">
+          College of Engineering Guindy, Chennai • <strong class="text-sky-400">kishorenath.me</strong>
+        </span>
+        <i data-lucide="copy" class="w-3 h-3 text-slate-500 group-hover:text-sky-400 transition-colors"></i>
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white mb-6 max-w-4xl leading-[1.12]">
+        Hi, I'm <span class="text-white">Kishorenath S</span>.
+        <span class="block text-gradient-accent mt-2">Software Engineer &amp; Problem Solver</span>
+      </h1>
+
+      <!-- Dynamic Role Typewriter -->
+      <div class="text-lg sm:text-2xl font-mono text-slate-300 mb-8 flex items-center justify-center min-h-[2.5rem]">
+        <span class="text-sky-400 mr-2 font-bold">&gt;</span>
+        <span id="typewriter-text" class="text-slate-100 font-semibold"></span>
+        <span class="typing-cursor">&nbsp;</span>
+      </div>
+
+      <!-- Professional Summary (Broad, Strong, Authentic) -->
+      <p class="text-slate-300 text-base sm:text-lg max-w-3xl mb-10 leading-relaxed font-normal">
+        3rd Year Computer Science and Engineering Undergraduate at <strong>College of Engineering Guindy (CEG), Anna University, Chennai</strong>. Passionate about software engineering, core algorithms, practical application development, and building dependable digital solutions. Creator of <a href="https://securedrop.kishorenath.me" target="_blank" class="text-sky-400 underline font-medium hover:text-sky-300">securedrop.kishorenath.me</a>.
+      </p>
+
+      <!-- Primary Action Buttons -->
+      <div class="flex flex-wrap items-center justify-center gap-4 mb-16">
+        <a href="https://securedrop.kishorenath.me" target="_blank" rel="noopener noreferrer" class="btn-primary-exec px-6 py-3.5 text-sm flex items-center gap-2">
+          <i data-lucide="globe" class="w-4 h-4"></i>
+          <span>Explore securedrop.kishorenath.me</span>
+          <i data-lucide="external-link" class="w-3.5 h-3.5 opacity-80"></i>
+        </a>
+
+        <a href="#projects" class="btn-secondary-exec px-5 py-3.5 text-sm flex items-center gap-2">
+          <i data-lucide="code-2" class="w-4 h-4 text-sky-400"></i>
+          <span>View Projects</span>
+        </a>
+
+        <a href="mailto:saravanankisor679@gmail.com" class="btn-secondary-exec px-4 py-3.5 text-sm flex items-center gap-2 copy-btn" data-copy="saravanankisor679@gmail.com" title="Copy Email">
+          <i data-lucide="mail" class="w-4 h-4 text-sky-400"></i>
+          <span>saravanankisor679@gmail.com</span>
+        </a>
+
+        <a href="tel:+916379029647" class="btn-secondary-exec px-4 py-3.5 text-sm flex items-center gap-2 font-mono" title="Call">
+          <i data-lucide="phone" class="w-4 h-4 text-emerald-400"></i>
+          <span>+91 6379029647</span>
+        </a>
+      </div>
+
+      <!-- Animated Technical Telemetry & Key Resume Metrics -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-4xl">
+        <div class="pro-card spotlight-card p-6 text-center">
+          <div class="text-3xl font-extrabold text-sky-400 font-mono" data-counter-target="7.56">0</div>
+          <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider font-semibold">CEG Chennai CGPA</div>
+          <div class="text-[11px] text-slate-500 mt-0.5 font-mono">B.E. Computer Science</div>
+        </div>
+        <div class="pro-card spotlight-card p-6 text-center">
+          <div class="text-3xl font-extrabold text-indigo-400 font-mono" data-counter-target="96.5" data-counter-suffix="%">0%</div>
+          <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider font-semibold">Higher Secondary</div>
+          <div class="text-[11px] text-slate-500 mt-0.5 font-mono">School First Rank</div>
+        </div>
+        <div class="pro-card spotlight-card p-6 text-center">
+          <div class="text-3xl font-extrabold text-purple-400 font-mono" data-counter-target="4" data-counter-suffix="+">0</div>
+          <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider font-semibold">Major Projects</div>
+          <div class="text-[11px] text-slate-500 mt-0.5 font-mono">C++, C, Web &amp; Systems</div>
+        </div>
+        <div class="pro-card spotlight-card p-6 text-center">
+          <div class="text-3xl font-extrabold text-emerald-400 font-mono" data-counter-target="100" data-counter-suffix="%">0%</div>
+          <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider font-semibold">NPTEL Certified</div>
+          <div class="text-[11px] text-slate-500 mt-0.5 font-mono">Networks &amp; Protocols</div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- =========================================================================
+         About Me Section
+         ========================================================================= -->
+    <section id="about" class="max-w-5xl mx-auto py-16 scroll-mt-24 border-t border-slate-800/80">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+        
+        <!-- Left: Profile Bio -->
+        <div class="md:col-span-7 space-y-5">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-400 text-xs font-mono uppercase tracking-wider">
+            <i data-lucide="user" class="w-3.5 h-3.5"></i>
+            Professional Profile
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+            Curious Learner, Problem Solver &amp; Software Developer
+          </h2>
+          <p class="text-slate-300 text-base leading-relaxed">
+            I am a motivated team player with a strong passion for emerging technologies. Currently pursuing my <strong>B.E. in Computer Science and Engineering at College of Engineering Guindy (CEG), Anna University, Chennai (2024–2028)</strong>. Always eager to learn, grow, collaborate, and bring fresh ideas to dynamic technical environments.
+          </p>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            My experience spans across <strong>core programming in C++ and Java</strong>, <strong>systems development with Linux kernel calls</strong>, <strong>graph algorithms</strong>, and <strong>practical web application development</strong> using modern frameworks. I take pride in clean code, algorithmic efficiency, and building reliable software from the ground up.
+          </p>
+
+          <!-- Key Pillars -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
+            <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800">
+              <div class="text-sky-400 font-semibold text-sm mb-1 flex items-center gap-2">
+                <i data-lucide="binary" class="w-4 h-4"></i>
+                <span>Core Computer Science</span>
+              </div>
+              <div class="text-slate-400 text-xs">Strong fundamentals in Data Structures, Algorithms, OOP, and Operating Systems.</div>
+            </div>
+            <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800">
+              <div class="text-indigo-400 font-semibold text-sm mb-1 flex items-center gap-2">
+                <i data-lucide="laptop" class="w-4 h-4"></i>
+                <span>Applied Development</span>
+              </div>
+              <div class="text-slate-400 text-xs">Hands-on experience delivering full software solutions, REST APIs, and databases.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Candidate Summary Card -->
+        <div class="md:col-span-5 pro-card spotlight-card p-6 sm:p-7 space-y-5">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+            <h3 class="font-bold text-white text-base">Candidate Details</h3>
+            <span class="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">Available</span>
+          </div>
+
+          <div class="space-y-3.5 text-xs font-mono">
+            <div>
+              <span class="text-slate-500 block uppercase tracking-wider">Institution</span>
+              <span class="text-slate-200 font-semibold text-sm">College of Engineering Guindy (CEG), Chennai</span>
+            </div>
+            <div>
+              <span class="text-slate-500 block uppercase tracking-wider">Degree &amp; Batch</span>
+              <span class="text-slate-200 font-semibold text-sm">B.E. Computer Science (2024 — 2028)</span>
+            </div>
+            <div>
+              <span class="text-slate-500 block uppercase tracking-wider">Languages Known</span>
+              <span class="text-slate-200 font-semibold text-sm">Tamil (Native) • English (Professional)</span>
+            </div>
+            <div>
+              <span class="text-slate-500 block uppercase tracking-wider">Live Domain</span>
+              <a href="https://kishorenath.me" target="_blank" class="text-sky-400 hover:underline font-semibold text-sm">kishorenath.me</a>
+            </div>
+          </div>
+
+          <div class="pt-2 border-t border-slate-800">
+            <a href="mailto:saravanankisor679@gmail.com" class="w-full py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-medium text-xs text-center block transition-colors">
+              saravanankisor679@gmail.com &rarr;
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         Subdomain Spotlight: securedrop.kishorenath.me
+         ========================================================================= -->
+    <section id="securedrop" class="max-w-5xl mx-auto py-16 scroll-mt-24 border-t border-slate-800/80">
+      
+      <div class="flex flex-col items-center text-center mb-12">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono uppercase tracking-wider mb-2.5">
+          <i data-lucide="globe" class="w-3.5 h-3.5"></i>
+          Live Subdomain Project
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+          SecureDrop • Secure File Exchange
+        </h2>
+        <p class="text-slate-400 max-w-xl text-sm mt-2">
+          A client-side encrypted web platform running on the custom subdomain <span class="text-sky-400 font-mono">securedrop.kishorenath.me</span>.
+        </p>
+      </div>
+
+      <!-- Spotlight Showcase Card -->
+      <div class="pro-card spotlight-card tilt-card p-8 sm:p-10 mb-10 border-sky-500/30">
+        
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-slate-800">
+          <div>
+            <div class="flex items-center gap-2.5 mb-2">
+              <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 text-[11px] font-mono flex items-center gap-1.5 font-bold">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                ACTIVE SUBDOMAIN
+              </span>
+              <span class="text-xs font-mono text-slate-400">domain: kishorenath.me</span>
+            </div>
+            <h3 class="text-2xl sm:text-3xl font-extrabold text-white">
+              securedrop.kishorenath.me
+            </h3>
+            <p class="text-slate-400 text-sm mt-1">
+              End-to-End Encrypted File Transfer &amp; Ephemeral Sharing Platform
+            </p>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <a href="https://securedrop.kishorenath.me" target="_blank" rel="noopener noreferrer" class="btn-primary-exec px-5 py-2.5 text-xs flex items-center gap-2">
+              <span>Visit Subdomain</span>
+              <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            </a>
+            <button class="copy-btn btn-secondary-exec px-3 py-2.5 text-xs font-mono" data-copy="https://securedrop.kishorenath.me" title="Copy Subdomain Link">
+              <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Architectural Workflow Overview -->
+        <div class="py-8">
+          <div class="text-xs font-mono text-slate-400 uppercase tracking-wider mb-4 flex items-center gap-2">
+            <i data-lucide="git-branch" class="w-3.5 h-3.5 text-sky-400"></i>
+            <span>System Workflow Sequence</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
+            
+            <!-- Step 1 -->
+            <div class="arch-node">
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-xs font-mono text-sky-400 font-bold">01. BROWSER ENCRYPTION</span>
+                <i data-lucide="lock" class="w-4 h-4 text-sky-400"></i>
+              </div>
+              <h4 class="text-white font-bold text-sm mb-1">Client-Side Cipher</h4>
+              <p class="text-slate-400 text-xs leading-relaxed">
+                Files and messages are encrypted directly in the user's browser with AES-256-GCM before transmission. Plaintext never leaves the device.
+              </p>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="arch-node">
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-xs font-mono text-indigo-400 font-bold">02. SUBDOMAIN EDGE</span>
+                <i data-lucide="globe" class="w-4 h-4 text-indigo-400"></i>
+              </div>
+              <h4 class="text-white font-bold text-sm mb-1">securedrop.kishorenath.me</h4>
+              <p class="text-slate-400 text-xs leading-relaxed">
+                Encrypted payload is routed over HTTPS / TLS. Host servers act solely as a secure relay with zero decryption capability.
+              </p>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="arch-node">
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-xs font-mono text-purple-400 font-bold">03. EPHEMERAL TTL</span>
+                <i data-lucide="timer" class="w-4 h-4 text-purple-400"></i>
+              </div>
+              <h4 class="text-white font-bold text-sm mb-1">Automatic Expiration</h4>
+              <p class="text-slate-400 text-xs leading-relaxed">
+                Shared files self-destruct upon single retrieval or after a set duration, ensuring data does not linger permanently.
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Tech Specifications -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-slate-800 text-xs font-mono">
+          <div>
+            <span class="text-slate-500 block">ENCRYPTION</span>
+            <span class="text-slate-200 font-bold">AES-256-GCM</span>
+          </div>
+          <div>
+            <span class="text-slate-500 block">SUBDOMAIN</span>
+            <span class="text-sky-400 font-bold">securedrop.kishorenath.me</span>
+          </div>
+          <div>
+            <span class="text-slate-500 block">ARCHITECTURE</span>
+            <span class="text-slate-200 font-bold">Client-Isolated</span>
+          </div>
+          <div>
+            <span class="text-slate-500 block">EXPIRATION</span>
+            <span class="text-emerald-400 font-bold">Configurable TTL</span>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- =========================================================================
+         Featured Projects (Direct from Resume)
+         ========================================================================= -->
+    <section id="projects" class="max-w-5xl mx-auto py-16 scroll-mt-24 border-t border-slate-800/80">
+      
+      <div class="flex flex-col items-center text-center mb-12">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-mono uppercase tracking-wider mb-2.5">
+          <i data-lucide="folder-code" class="w-3.5 h-3.5"></i>
+          Project Portfolio
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+          Featured Projects
+        </h2>
+        <p class="text-slate-400 max-w-lg text-sm mt-2">
+          Systems software, algorithmic planners, and full-stack web applications.
+        </p>
+      </div>
+
+      <div class="space-y-6">
+        
+        <!-- Project 1: OS-Level Resource Monitoring System -->
+        <div class="pro-card spotlight-card tilt-card p-6 sm:p-8 group">
+          <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
+            <div>
+              <div class="flex items-center gap-2.5 mb-2">
+                <span class="w-2 h-2 rounded-full bg-sky-400"></span>
+                <span class="text-xs font-mono text-sky-400 uppercase tracking-wider font-semibold">Systems &amp; Linux Internals</span>
+              </div>
+              <h3 class="text-xl sm:text-2xl font-bold text-white group-hover:text-sky-300 transition-colors">
+                OS-Level Resource Monitoring System
+              </h3>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-mono bg-slate-800/80 text-slate-300 px-3 py-1 rounded-full border border-slate-700/60">
+                C • Linux /proc • Flask • React
+              </span>
+            </div>
+          </div>
+
+          <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-4">
+            Developed a multi-tier system monitoring tool to analyze real-time processes, CPU/memory usage, and system health using <strong>Linux <code class="text-sky-400 font-mono">/proc</code> filesystem</strong> and <strong>kernel-level system calls</strong>. Implemented process visualization, resource analytics, and process control operations with a high-performance C core, Flask REST API, and dynamic React dashboard.
+          </p>
+
+          <div class="flex flex-wrap gap-2 pt-4 border-t border-slate-800 text-xs font-mono text-slate-400">
+            <span class="bg-slate-900 px-2.5 py-1 rounded border border-slate-800 text-sky-300">C</span>
+            <span class="bg-slate-900 px-2.5 py-1 rounded border border-slate-800">Linux System Calls</span>
+            <span class="bg-slate-900 px-2.5 py-1 rounded border border-slate-800">/proc Filesystem</span>
+            <span class="bg-slate-900 px-2.5 py-1 rounded border border-slate-800">Python / Flask</span>
+            <span class="bg-slate-900 px-2.5 py-1 rounded border border-slate-800">React</span>
+            <span class="bg-slate-900 px-2.5 py-1 rounded border border-slate-800">Unix Process Management</span>
+          </div>
+        </div>
+
+        <!-- Project 2: Smart Street Parking System -->
+        <div class="pro-card spotlight-card tilt-card p-6 sm:p-8 group">
+          <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
+            <div>
+              <div class="flex items-center gap-2.5 mb-2">
+                <span class="w-2 h-2 rounded-full bg-indigo-400"></span>
+                <span class="text-xs font-mono text-indigo-400 uppercase tracking-wider font-semibold">Web Applications &amp; Geolocation</span>
+              </div>
+              <h3 class="text-xl sm:text-2xl font-bold text-white group-hover:text-indigo-300 transition-colors">
+                Smart Street Parking System
+              </h3>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-mono bg-slate-800/80 text-slate-300 px-3 py-1 rounded-full border border-slate-700/60">
+                Angular • Node.js • Stripe • Leaflet.js
+              </span>
+            </div>
+          </div>
+
+          <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-4">
+            Developed a comprehensive web application for real-time parking slot booking, vehicle management, digital wallet payments, and QR-based parking access. Implemented secure REST APIs, JWT authentication, geolocation-based interactive parking search with Leaflet.js, and admin dashboard functionalities.
+          </p>
+
+          <div class="flex flex-wrap gap-2 pt-4 border-t border-slate-800 text-xs font-mono text-slate-400">
+            <span class="bg-slate-900 px-2.5 py-1 rounded border border-slate-800 text-indigo-300">Angular</span>
+            <span class="bg-slate-900 px-2.5 py-1 rounded border border-slate-800">Node.js / Express</span>
+            <span class="bg-slate-900 px-2.5 py-1 rounded border border-slate-800">JWT Authentication</span>
+            <span class="bg-slate-900 px-2.5 py-1 rounded border border-slate-800">Twilio API</span>
+            <span class="bg-slate-900 px-2.5 py-1 rounded border border-slate-800">Stripe API</span>
+            <span class="bg-slate-900 px-2.5 py-1 rounded border border-slate-800">Leaflet.js</span>
+            <span class="bg-slate-900 px-2.5 py-1 rounded border border-slate-800">QR Code Generation</span>
+          </div>
+        </div>
+
+        <!-- Project 3: University Course Prerequisite Planner & Scheduler -->
+        <div class="pro-card spotlight-card tilt-card p-6 sm:p-8 group">
+          <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
+            <div>
+              <div class="flex items-center gap-2.5 mb-2">
+                <span class="w-2 h-2 rounded-full bg-purple-400"></span>
+                <span class="text-xs font-mono text-purple-400 uppercase tracking-wider font-semibold">Graph Theory &amp; C++17</span>
+              </div>
+              <h3 class="text-xl sm:text-2xl font-bold text-white group-hover:text-purple-300 transition-colors">
+                University Course Prerequisite Planner &amp; Scheduler
+              </h3>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-mono bg-slate-800/80 text-slate-300 px-3 py-1 rounded-full border border-slate-700/60">
+                C++17 • Graph Algorithms • Topological Sort
+              </span>
+            </div>
+          </div>
+
+          <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-4">
+            Developed a CLI-based application to manage university course catalogs and generate optimized semester schedules using graph-based prerequisite planning. Implemented <strong>Topological Sort</strong> for scheduling sequences, <strong>DFS-based cycle detection</strong> to identify prerequisite deadlocks, and role-based access for efficient course management.
+          </p>
+
+          <div class="flex flex-wrap gap-2 pt-4 border-t border-slate-800 text-xs font-mono text-slate-400">
+            <span class="bg-slate-900 px-2.5 py-1 rounded border border-slate-800 text-purple-300">C++17</span>
+            <span class="bg-slate-900 px-2.5 py-1 rounded border border-slate-800">STL &amp; OOP</span>
+            <span class="bg-slate-900 px-2.5 py-1 rounded border border-slate-800">Graph Algorithms</span>
+            <span class="bg-slate-900 px-2.5 py-1 rounded border border-slate-800">Topological Sort</span>
+            <span class="bg-slate-900 px-2.5 py-1 rounded border border-slate-800">DFS Cycle Detection</span>
+            <span class="bg-slate-900 px-2.5 py-1 rounded border border-slate-800">Priority Queue</span>
+            <span class="bg-slate-900 px-2.5 py-1 rounded border border-slate-800">Makefile</span>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- =========================================================================
+         Skills & Technical Arsenal
+         ========================================================================= -->
+    <section id="skills" class="max-w-5xl mx-auto py-16 scroll-mt-24 border-t border-slate-800/80">
+      
+      <div class="flex flex-col items-center text-center mb-12">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-400 text-xs font-mono uppercase tracking-wider mb-2.5">
+          <i data-lucide="cpu" class="w-3.5 h-3.5"></i>
+          Technical Competencies
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+          Skills &amp; Technologies
+        </h2>
+        <p class="text-slate-400 max-w-lg text-sm mt-2">
+          Programming languages, web technologies, databases, and problem-solving skills.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Category 1: Languages & Core -->
+        <div class="pro-card spotlight-card p-6 space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="p-2.5 rounded-xl bg-sky-500/10 text-sky-400">
+              <i data-lucide="code" class="w-5 h-5"></i>
+            </div>
+            <h3 class="font-bold text-white text-base">Technical Skills</h3>
+          </div>
+          <ul class="space-y-2.5 text-xs text-slate-300 font-mono">
+            <li class="flex justify-between border-b border-slate-800/80 pb-1.5">
+              <span>C++ (C++17 / STL)</span>
+              <span class="text-sky-400">Advanced</span>
+            </li>
+            <li class="flex justify-between border-b border-slate-800/80 pb-1.5">
+              <span>C (System Calls)</span>
+              <span class="text-sky-400">Proficient</span>
+            </li>
+            <li class="flex justify-between border-b border-slate-800/80 pb-1.5">
+              <span>Java</span>
+              <span class="text-sky-400">Proficient</span>
+            </li>
+            <li class="flex justify-between">
+              <span>Python (Basic / Flask)</span>
+              <span class="text-sky-400">Intermediate</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Category 2: Web Technologies -->
+        <div class="pro-card spotlight-card p-6 space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="p-2.5 rounded-xl bg-indigo-500/10 text-indigo-400">
+              <i data-lucide="layout" class="w-5 h-5"></i>
+            </div>
+            <h3 class="font-bold text-white text-base">Web Technologies</h3>
+          </div>
+          <ul class="space-y-2.5 text-xs text-slate-300 font-mono">
+            <li class="flex justify-between border-b border-slate-800/80 pb-1.5">
+              <span>JavaScript (ES6+)</span>
+              <span class="text-indigo-400">Advanced</span>
+            </li>
+            <li class="flex justify-between border-b border-slate-800/80 pb-1.5">
+              <span>Node.js &amp; Express.js</span>
+              <span class="text-indigo-400">Advanced</span>
+            </li>
+            <li class="flex justify-between border-b border-slate-800/80 pb-1.5">
+              <span>React &amp; Angular</span>
+              <span class="text-indigo-400">Proficient</span>
+            </li>
+            <li class="flex justify-between">
+              <span>HTML5 &amp; CSS3</span>
+              <span class="text-indigo-400">Advanced</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Category 3: Databases & Tools -->
+        <div class="pro-card spotlight-card p-6 space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="p-2.5 rounded-xl bg-purple-500/10 text-purple-400">
+              <i data-lucide="database" class="w-5 h-5"></i>
+            </div>
+            <h3 class="font-bold text-white text-base">Databases &amp; Systems</h3>
+          </div>
+          <ul class="space-y-2.5 text-xs text-slate-300 font-mono">
+            <li class="flex justify-between border-b border-slate-800/80 pb-1.5">
+              <span>PostgreSQL</span>
+              <span class="text-purple-400">Proficient</span>
+            </li>
+            <li class="flex justify-between border-b border-slate-800/80 pb-1.5">
+              <span>Oracle Database</span>
+              <span class="text-purple-400">Proficient</span>
+            </li>
+            <li class="flex justify-between border-b border-slate-800/80 pb-1.5">
+              <span>REST APIs &amp; JSON</span>
+              <span class="text-purple-400">Advanced</span>
+            </li>
+            <li class="flex justify-between">
+              <span>Linux &amp; /proc System</span>
+              <span class="text-purple-400">Proficient</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Category 4: Soft Skills & Teamwork -->
+        <div class="pro-card spotlight-card p-6 space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400">
+              <i data-lucide="award" class="w-5 h-5"></i>
+            </div>
+            <h3 class="font-bold text-white text-base">Soft Skills</h3>
+          </div>
+          <ul class="space-y-2.5 text-xs text-slate-300 font-mono">
+            <li class="flex justify-between border-b border-slate-800/80 pb-1.5">
+              <span>Quick Learning</span>
+              <span class="text-emerald-400">Active</span>
+            </li>
+            <li class="flex justify-between border-b border-slate-800/80 pb-1.5">
+              <span>Teamwork &amp; Collab</span>
+              <span class="text-emerald-400">High</span>
+            </li>
+            <li class="flex justify-between border-b border-slate-800/80 pb-1.5">
+              <span>Leadership</span>
+              <span class="text-emerald-400">Demonstrated</span>
+            </li>
+            <li class="flex justify-between">
+              <span>Adaptability</span>
+              <span class="text-emerald-400">High</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- =========================================================================
+         Education & Honors
+         ========================================================================= -->
+    <section id="education" class="max-w-5xl mx-auto py-16 scroll-mt-24 border-t border-slate-800/80">
+      
+      <div class="flex flex-col items-center text-center mb-12">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-mono uppercase tracking-wider mb-2.5">
+          <i data-lucide="graduation-cap" class="w-3.5 h-3.5"></i>
+          Academic Qualifications
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+          Education &amp; Achievements
+        </h2>
+        <p class="text-slate-400 max-w-lg text-sm mt-2">
+          Academic foundation, verified certifications, and distinctions.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+        
+        <!-- Education 1: College of Engineering Guindy -->
+        <div class="pro-card spotlight-card p-6 sm:p-7">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-mono text-sky-400 bg-sky-500/10 px-2.5 py-1 rounded-full">
+              2024 — 2028
+            </span>
+            <span class="text-xs font-mono font-bold text-white bg-slate-800 px-2.5 py-1 rounded">
+              CGPA: 7.56
+            </span>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-1">
+            B.E. in Computer Science and Engineering
+          </h3>
+          <div class="text-sm font-semibold text-sky-400 mb-3">
+            College of Engineering Guindy (CEG), Anna University, Chennai
+          </div>
+          <p class="text-slate-400 text-xs leading-relaxed">
+            Pursuing Computer Science at one of India's most renowned engineering colleges. Curriculum covers Data Structures &amp; Algorithms, Operating Systems, Database Management Systems, Computer Networks, and Object-Oriented Programming.
+          </p>
+        </div>
+
+        <!-- Education 2: Higher Secondary -->
+        <div class="pro-card spotlight-card p-6 sm:p-7">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-mono text-indigo-400 bg-indigo-500/10 px-2.5 py-1 rounded-full">
+              2023 — 2024
+            </span>
+            <span class="text-xs font-mono font-bold text-white bg-slate-800 px-2.5 py-1 rounded">
+              Score: 96.5%
+            </span>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-1">
+            Higher Secondary Education
+          </h3>
+          <div class="text-sm font-semibold text-indigo-400 mb-3">
+            GK Matriculation Higher Secondary School, Kattumanarkovil
+          </div>
+          <p class="text-slate-400 text-xs leading-relaxed">
+            Completed with a top score of 96.5%. Achieved School First Rank in 10th Standard and secured Top Rank in 12th Standard.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Honors Strip -->
+      <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+        <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-400"></i>
+        <span>Verified Achievements &amp; Certifications</span>
+      </h3>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 flex items-start gap-3">
+          <i data-lucide="award" class="w-5 h-5 text-sky-400 shrink-0 mt-0.5"></i>
+          <div>
+            <div class="text-white font-semibold text-sm">NPTEL Certification</div>
+            <div class="text-slate-400 text-xs mt-0.5">Computer Networks and Internet Protocol</div>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 flex items-start gap-3">
+          <i data-lucide="trophy" class="w-5 h-5 text-indigo-400 shrink-0 mt-0.5"></i>
+          <div>
+            <div class="text-white font-semibold text-sm">Academic Excellence</div>
+            <div class="text-slate-400 text-xs mt-0.5">School 1st Rank (10th) &amp; Top Rank (12th - 96.5%)</div>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 flex items-start gap-3">
+          <i data-lucide="keyboard" class="w-5 h-5 text-purple-400 shrink-0 mt-0.5"></i>
+          <div>
+            <div class="text-white font-semibold text-sm">Junior Typist Certification</div>
+            <div class="text-slate-400 text-xs mt-0.5">Graduated with First Class Distinction</div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- =========================================================================
+         Leadership & Positions of Responsibility
+         ========================================================================= -->
+    <section id="leadership" class="max-w-5xl mx-auto py-16 scroll-mt-24 border-t border-slate-800/80">
+      
+      <div class="flex flex-col items-center text-center mb-12">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono uppercase tracking-wider mb-2.5">
+          <i data-lucide="users" class="w-3.5 h-3.5"></i>
+          Campus Leadership
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+          Positions of Responsibility
+        </h2>
+        <p class="text-slate-400 max-w-lg text-sm mt-2">
+          Demonstrated leadership, organization, and coordination at CEG.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Responsibility 1: NSS -->
+        <div class="pro-card spotlight-card p-6 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full">
+                2025 — 2026
+              </span>
+              <i data-lucide="heart-handshake" class="w-5 h-5 text-emerald-400"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-1">
+              General Secretary
+            </h3>
+            <div class="text-xs font-mono text-slate-400 mb-3">NSS (National Service Scheme)</div>
+            <ul class="space-y-1.5 text-xs text-slate-300 list-disc list-inside leading-relaxed">
+              <li>Organised comprehensive social camp for juniors at Karunilam, Kancheepuram.</li>
+              <li>Successfully conducted flagship event <strong>Vidhaigal</strong> with broad student engagement.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Responsibility 2: SAAS -->
+        <div class="pro-card spotlight-card p-6 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-mono text-indigo-400 bg-indigo-500/10 px-2.5 py-0.5 rounded-full">
+                2025 — 2026
+              </span>
+              <i data-lucide="sparkles" class="w-5 h-5 text-indigo-400"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-1">
+              Event Coordinator
+            </h3>
+            <div class="text-xs font-mono text-slate-400 mb-3">SAAS (Students Association &amp; Arts Society)</div>
+            <ul class="space-y-1.5 text-xs text-slate-300 list-disc list-inside leading-relaxed">
+              <li>Organized events in University Culturals.</li>
+              <li>Conducted the popular flagship event <strong>IPL AUCTION</strong> in Techofes '2025.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Responsibility 3: pixels -->
+        <div class="pro-card spotlight-card p-6 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-mono text-sky-400 bg-sky-500/10 px-2.5 py-0.5 rounded-full">
+                2024 — 2026
+              </span>
+              <i data-lucide="camera" class="w-5 h-5 text-sky-400"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-1">
+              Junior Head (Coverage)
+            </h3>
+            <div class="text-xs font-mono text-slate-400 mb-3">pixels (Photo &amp; Video Club of CEG)</div>
+            <ul class="space-y-1.5 text-xs text-slate-300 list-disc list-inside leading-relaxed">
+              <li>Managed media and visual coverage across key campus events at CEG.</li>
+              <li>Organized and conducted the flagship club event <strong>pix</strong>.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- =========================================================================
+         Connect & Contact
+         ========================================================================= -->
+    <section id="contact-connect" class="max-w-4xl mx-auto py-16 scroll-mt-24 border-t border-slate-800/80">
+      
+      <div class="pro-card spotlight-card p-8 sm:p-12 text-center relative overflow-hidden border-sky-500/30">
+        <div class="w-14 h-14 mx-auto mb-4 rounded-2xl bg-gradient-to-tr from-sky-500/20 to-indigo-500/20 border border-sky-500/30 flex items-center justify-center text-sky-400">
+          <i data-lucide="send" class="w-7 h-7"></i>
+        </div>
+
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight mb-3">
+          Let's Connect
+        </h2>
+        <p class="text-slate-300 max-w-xl mx-auto text-sm sm:text-base mb-8 leading-relaxed">
+          Open to software engineering roles, internships, campus opportunities, and collaborative technology projects.
+        </p>
+
+        <!-- Professional Action Links -->
+        <div class="flex flex-wrap items-center justify-center gap-4">
+          <a href="mailto:saravanankisor679@gmail.com" class="btn-primary-exec px-6 py-3.5 text-sm flex items-center gap-2 copy-btn" data-copy="saravanankisor679@gmail.com">
+            <i data-lucide="mail" class="w-4 h-4"></i>
+            <span>Email: saravanankisor679@gmail.com</span>
+          </a>
+
+          <a href="tel:+916379029647" class="btn-secondary-exec px-5 py-3.5 text-sm flex items-center gap-2 font-mono">
+            <i data-lucide="phone" class="w-4 h-4 text-emerald-400"></i>
+            <span>+91 6379029647</span>
+          </a>
+
+          <a href="https://securedrop.kishorenath.me" target="_blank" rel="noopener noreferrer" class="btn-secondary-exec px-5 py-3.5 text-sm flex items-center gap-2">
+            <i data-lucide="globe" class="w-4 h-4 text-sky-400"></i>
+            <span>securedrop.kishorenath.me</span>
+            <i data-lucide="external-link" class="w-3.5 h-3.5 text-slate-500"></i>
+          </a>
+        </div>
+
+        <!-- Direct Credentials -->
+        <div class="mt-8 pt-6 border-t border-slate-800/80 flex flex-wrap items-center justify-center gap-6 text-xs font-mono text-slate-400">
+          <span>Name: <strong class="text-white">Kishorenath S</strong></span>
+          <span>•</span>
+          <span>Domain: <strong class="text-sky-400">kishorenath.me</strong></span>
+          <span>•</span>
+          <span>College: <strong class="text-white">CEG Guindy, Chennai</strong></span>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- =========================================================================
+       Footer
+       ========================================================================= -->
+  <footer class="relative z-10 border-t border-slate-800/80 bg-[#06080e] py-8 px-6 sm:px-8">
+    <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-500">
+      <div class="flex items-center gap-2">
+        <span class="text-white font-bold">Kishorenath S</span>
+        <span>•</span>
+        <span><a href="https://kishorenath.me" class="text-slate-400 hover:text-sky-400">kishorenath.me</a></span>
+        <span>•</span>
+        <span><a href="https://securedrop.kishorenath.me" target="_blank" class="text-sky-400 hover:underline">securedrop.kishorenath.me</a></span>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <a href="#hero" class="hover:text-slate-300">Back to Top ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =========================================================================
+       Toast Notification Component
+       ========================================================================= -->
+  <div id="toast-notification" class="toast-notice pro-card px-5 py-3 border border-sky-500/40 shadow-2xl flex items-center gap-3">
+    <i data-lucide="check-circle" class="w-4 h-4 text-sky-400"></i>
+    <span id="toast-message" class="text-xs font-mono text-slate-200"></span>
+  </div>
+
+  <!-- Lucide Script Initialization -->
+  <script>
+    lucide.createIcons();
+  </script>
+
+  <!-- Custom Scripts -->
+  <script src="script.js"></script>
+</body>
+</html>
